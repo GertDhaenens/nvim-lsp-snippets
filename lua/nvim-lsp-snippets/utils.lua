@@ -1,5 +1,15 @@
+local config = require('nvim-lsp-snippets.config')
+
 ---@class nvim_lsp_snippets.utils
 local utils = {}
+
+-- Log a debug message if verbose output is enabled
+-- @param msg string The message to log
+function utils.log_debug(msg)
+    if config.get_option('verbose', false) then
+        vim.notify(msg, vim.log.levels.DEBUG)
+    end
+end
 
 --- Read the entire contents of a given file path as a string
 --- @type fun(path: string): string | nil

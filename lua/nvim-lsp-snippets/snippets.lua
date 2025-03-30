@@ -22,11 +22,11 @@ local Snippet = {}
 --- @param path string The path to the snippet file to load from
 --- @returns nvim_lsp_snippets.snippets.Snippet[] An array of snippets that have been loaded
 function snippets.load_snippets_from_file(path)
-    vim.notify('Attempting to load \'' .. path .. '\'', vim.log.levels.DEBUG)
+    utils.log_debug('Attempting to load \'' .. path .. '\'')
 
     -- Check to see if this file has already been loaded
     if snippets.snippets_by_source[path] then
-        vim.notify('\'' .. path .. '\' was cached. Returning cached entries...', vim.log.levels.DEBUG)
+        utils.log_debug('\'' .. path .. '\' was cached. Returning cached entries...')
         return snippets.snippets_by_source[path]
     end
 
@@ -55,7 +55,7 @@ function snippets.load_snippets_from_file(path)
         if type(desc.body) == 'table' then
             concatenated_body = table.concat(desc.body, '\n')
         end
-        
+
         -- TODO: Deal with the fact that there can be more than one prefix
         -- by creating a snippet *per* prefix to add to the list
 
@@ -77,7 +77,7 @@ end
 --- Load snippets from a supplied package file and returns the amount of snippets laoded
 --- @param path string A path to the package.json file to load
 function snippets.load_package_json(path)
-    vim.notify('Attempting to load \'' .. path .. '\'', vim.log.levels.DEBUG)
+    utils.log_debug('Attempting to load \'' .. path .. '\'')
 
     -- Read the contents of the package file
     local package_contents = utils.read_entire_file(path)
